@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { sidebar_data } from "../data/sidebar_data";
+import Link from "next/link";
 const Sidebar = () => {
   return (
     <div className="xl:w-[20%] lg:w-[25%] p-5 md:w-[35%] bg-primary min-h-screen w-full">
@@ -26,13 +27,18 @@ const Sidebar = () => {
               {item?.items?.map((item2, index2) => {
                 return (
                   <>
-                    <li
-                      key={index2}
-                      className="flex gap-3 hover:bg-secondary p-3 transition-all rounded-full cursor-pointer  text-1xl capitalize font-semibold items-center"
+                    <Link
+                      href={item2?.link}
+                      className="text-decoration-none  text-white"
                     >
-                      <div className="text-white">{item2?.icon}</div>
-                      <h4 className="text-white">{item2?.title}</h4>
-                    </li>
+                      <li
+                        key={index2}
+                        className="flex gap-3 hover:bg-secondary p-3 transition-all rounded-full cursor-pointer  text-1xl capitalize font-semibold items-center"
+                      >
+                        <div className="text-white">{item2?.icon}</div>
+                        <h4 className="text-white">{item2?.title}</h4>
+                      </li>
+                    </Link>
                   </>
                 );
               })}

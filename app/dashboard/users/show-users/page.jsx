@@ -1,9 +1,13 @@
+import { deleteUser } from "@/app/backend/actions/actions";
 import { connectDB } from "@/app/backend/config";
 import { getUserData } from "@/app/backend/data/fetch";
+import Button from "@/app/components/Button";
 import React from "react";
 
-const page = async () => {
-  const userData = await getUserData();
+const page = async ({ searchParams }) => {
+  const params = await searchParams;
+
+  const userData = await getUserData(params.q);
   return (
     <>
       <div className="p-4 w-[90%] mx-auto bg-primary rounded-lg">
@@ -34,9 +38,16 @@ const page = async () => {
                       </button>
                     </th>
                     <th className="text-start">
-                      <button className="bg-red-700 text-white py-1 rounded-full px-4">
-                        delete
-                      </button>
+                      <form action={deleteUser}>
+                        <input type="hidden" value={item?._id} name="id" />
+                        <Button
+                          customStyle={"rounded-full py-1 px-4"}
+                          content={"Delete"}
+                          loadingContent={"Deleting..."}
+                          color={"bg-red-500"}
+                          disabledColor={"bg-gray-400"}
+                        />
+                      </form>
                     </th>
                   </tr>
                 </>
